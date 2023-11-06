@@ -14,7 +14,7 @@ jobs:
               uses: actions/setup-dotnet@v1
               with:
                   dotnet-version: 8.x
-                  include-prerelease: true
+                  include-prerelease: true 
 
             - name: dotnet workload restore
               run: dotnet workload restore
