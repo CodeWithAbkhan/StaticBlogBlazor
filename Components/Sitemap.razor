@@ -1,0 +1,59 @@
+﻿@page "/sitemap.xml"
+@using System.Xml;
+@using StaticBlog3.Models
+@inject IJSRuntime jsRuntime
+@inject IHttpContextAccessor HttpContextAccessor
+@layout Layout.EmptyLayout
+
+@code {
+    private IEnumerable<BlogPost> blogPosts;
+    private string sitemapXml;
+
+    [Inject]
+    private BlogService blogService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        blogPosts = blogService.GetBlogPosts();
+        sitemapXml = GenerateSitemapXml(blogPosts);
+        ServeSitemapAsXmlResponse(sitemapXml);
+    }
+
+    private string GenerateSitemapXml(IEnumerable<BlogPost> posts)
+    {
+        var doc = new XmlDocument();
+        var urlset = doc.CreateElement("urlset");
+        // Add the XML declaration
+        var declaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+        doc.InsertBefore(declaration, doc.DocumentElement);
+        urlset.SetAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
+        urlset.SetAttribute("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
+        foreach (var post in posts)
+        {
+            var url = doc.CreateElement("url");
+
+            var loc = doc.CreateElement("loc");
+            loc.InnerText = $"https://yourwebsite.com/blog/{post.Slug}"; // Replace with your website URL
+            url.AppendChild(loc);
+
+            // var lastmod = doc.CreateElement("lastmod");
+            // lastmod.InnerText = post.Date.ToString("yyyy-MM-ddTHH:mm:sszzz"); // Format the last modified date
+            // url.AppendChild(lastmod);
+
+            urlset.AppendChild(url);
+        }
+
+        doc.AppendChild(urlset);
+
+        return doc.OuterXml;
+    }
+
+    private void ServeSitemapAsXmlResponse(string xmlContent)
+    {
+        var httpContext = HttpContextAccessor.HttpContext;
+        httpContext.Response.Clear();
+        httpContext.Response.ContentType = "text/xml";
+
+        httpContext.Response.WriteAsync(xmlContent).Wait();
+    }
+}

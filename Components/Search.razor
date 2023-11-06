@@ -1,0 +1,127 @@
+﻿@using StaticBlog3.Models
+@inject BlogService BlogService
+
+    <form class="w-100 me-3" role="search">
+        <input id="blogSearchInput" class="form-control mr-sm-2 w-100"
+               placeholder="Search Blogs" autocomplete="off" />
+    </form>
+  
+    <div class="dropdown ">
+    <ul id="blogDropdown" class="dropdown-menu list-unstyled w-100" style="display: none;">
+        </ul>
+    </div>
+    <div id="blogList" data-blog-posts="@System.Text.Json.JsonSerializer.Serialize(allBlogPosts)" data-permanent></div>
+
+
+
+
+@code{
+    private IEnumerable<BlogPost> allBlogPosts ;
+    protected override void OnInitialized(){
+        allBlogPosts = BlogService.GetBlogPosts();
+    }
+    
+}
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the div container element by its ID
+        var blogList = document.getElementById("blogList");
+
+        // Get the value of the data-blog-posts attribute
+        var dataBlogPosts = blogList.getAttribute("data-blog-posts");
+
+        // Parse the data-blog-posts as JSON
+        var blogPosts = JSON.parse(dataBlogPosts);
+        console.log(blogPosts);
+
+        // Get the dropdown element by ID
+        var blogDropdown = document.getElementById("blogDropdown");
+
+        // Text input for searching
+        var searchInput = document.getElementById("blogSearchInput");
+
+        // Function to show or hide the dropdown based on the input focus and text change
+        function toggleDropdown() {
+            if (searchInput.value.trim() !== '') {
+                blogDropdown.style.display = 'block';
+            } else {
+                blogDropdown.style.display = 'none';
+            }
+        }
+
+        // Add event listener for input changes
+        searchInput.addEventListener("input", function () {
+            toggleDropdown();
+            var searchText = searchInput.value.toLowerCase();
+
+            // Filter the blog posts based on the search text
+            var filteredPosts = blogPosts.filter(function (post) {
+                return post.Title.toLowerCase().includes(searchText);
+            });
+            console.log(filteredPosts);
+
+            // Clear the existing dropdown options
+            blogDropdown.innerHTML = '';
+           
+            // Add filtered posts to the dropdown
+            filteredPosts.forEach(function (post, index) {
+                var li = document.createElement("li");
+                li.value = index + 1;
+
+                var a = document.createElement("a");
+                a.className = "d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top";
+                a.value = index + 1;
+                a.href = post.Slug;
+
+                // img.ariaHidden = true;
+                var div = document.createElement("div");
+                div.className = "col-lg-8";
+                var h6 = document.createElement("h6");
+                h6.className = "mb-0";
+                h6.textContent = post.Title;
+
+                var date = new Date(post.Date);
+                var formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+                var small = document.createElement("small");
+                small.className = "text-body-secondary";
+                small.textContent = formattedDate;
+                div.appendChild(h6);
+                div.appendChild(small);
+
+                a.appendChild(div);
+                li.appendChild(a);
+                             
+                blogDropdown.appendChild(li);
+               
+            });
+        });
+
+        // Event listener for dropdown item click
+        blogDropdown.addEventListener("click", function (e) {
+            if (e.target.tagName === 'LI') {
+                var selectedIndex = e.target.value;
+                if (selectedIndex > 0) {
+                    // Redirect to the selected blog page
+                    window.location.href = "/blogs/" + selectedIndex;
+                }
+            }
+        });
+
+        // Event listener for input focus
+        searchInput.addEventListener("focus", function () {
+            toggleDropdown();
+        });
+
+        // Event listener for input blur
+        searchInput.addEventListener("blur", function () {
+            // Delay the hiding of the dropdown to allow for a click on a dropdown item
+            setTimeout(function () {
+                blogDropdown.style.display = 'none';
+            }, 200);
+        });
+
+    });
+  
+</script>

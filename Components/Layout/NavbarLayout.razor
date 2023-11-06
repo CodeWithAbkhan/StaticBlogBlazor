@@ -1,0 +1,33 @@
+﻿@inherits LayoutComponentBase
+
+<nav class="navbar navbar-dark navbar-expand-sm bg-dark fixed-top align-content-center">
+    <div class="container" style="grid-template-columns: 1fr 2fr;">
+        <NavLink href="/" class="navbar-brand">
+            <i class="fas fa-blog"></i> &nbsp;
+            Static Blazord Blog
+        </NavLink>
+        <button class="navbar-toggler" type="button" id="togglebtn" aria-label="Toggle" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/">Home</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/Blogs">Blogs</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink href="/" class="nav-link ">
+                        About
+                    </NavLink>
+                </li>
+            </ul>
+
+            <div class="px-4 w-100" data-enhance-nav="false">
+                <Search />
+            </div>
+
+        </div>
+    </div>
+</nav>

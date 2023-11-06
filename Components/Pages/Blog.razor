@@ -1,0 +1,38 @@
+﻿@page "/{Slug}"
+
+@using StaticBlog3.Models
+
+@inject BlogService BlogService
+@inject IJSRuntime _jsRuntime
+<h1>Blog Post</h1>
+
+@if (blogPost != null)
+{
+    <h2>@blogPost.Title</h2>
+    <p>@blogPost.Date.ToShortDateString()</p>
+    <div >
+        @((MarkupString)blogPost.Content) </div>
+}
+else
+{
+    <p>Blog post not found.</p>
+}
+
+@code {
+    private BlogPost blogPost;
+
+    [Parameter] public string Slug { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _jsRuntime.InvokeVoidAsync("Prism.highlightAll");
+    }
+    protected override void OnInitialized()
+    {
+        blogPost = BlogService.GetBlogPostBySlug(Slug);
+        if (blogPost != null)
+        {
+            // Call the UpdateViewCount method to increment the view count
+            BlogService.UpdateViewCount(Slug);
+        }
+    }
+}
