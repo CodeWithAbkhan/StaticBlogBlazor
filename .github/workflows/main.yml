@@ -2,7 +2,7 @@ name: Deploy Blazor Static site to GitHub Pages
 
 on:
     push:
-        branches: [master]
+        branches: [main]
 
 jobs:
     deploy-to-github-pages:
@@ -19,8 +19,8 @@ jobs:
             - name: dotnet workload restore
               run: dotnet workload restore
             
-            - name: Publish .NET Core Project
-              run: dotnet publish StaticBlog3.csproj -c Release -o release --nologo
+           # - name: Publish .NET Core Project
+          #    run: dotnet publish StaticBlog3.csproj -c Release -o release --nologo
              # changes the base-tag in index.html from '/' to 'BlazorWasmDemo' to match GitHub Pages repository subdirectory
             #- name: Change base-tag in index.html from / to StaticBlogBlazor
            #   run: sed -i 's/<base href="\/" \/>/<base href="\/StaticBlogBlazor\/" \/>/g' release/wwwroot/index.html
@@ -37,4 +37,4 @@ jobs:
               with:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                   BRANCH: gh-pages
-                  FOLDER: release/wwwroot
+                  FOLDER: release
