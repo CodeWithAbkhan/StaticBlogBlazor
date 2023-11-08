@@ -5,26 +5,20 @@
 @inject BlogService BlogService
 
 <h1>Blog Posts</h1>
-<div class="container mt-5">
-    <div class="row">
+@if(displayedBlogPosts == null)
+{
+ <p><em>Loading...</em></p>
+}
+else{
+    <div class="container">
+       <div class="row">
         <div class="col-md-8">
             <div class="row">
-
             @foreach (var post in displayedBlogPosts)
             {
-                <div class="card mx-2 mb-3 col-md-5">
-                    <img src="@(post.FeaturedImage)" class="card-img-top" height="250px" alt="...">
-                    <div class="card-body">
-                        <h2 class="card-title"><a href="/@(post.Slug)">@(post.Title)</a></h2>
-                        <p class="card-text">@post.Description</p>
-                        <p class="card-text"><small class="text-muted">@post.Date.ToShortDateString()</small></p>
-                    </div>
-                </div>
-
-
+            <BlogCard post="post" />
             }
             </div>
-
             @if (totalPages > 1)
             {
                 <nav aria-label="Blog Posts Pagination">
@@ -53,22 +47,13 @@
                     </ul>
                 </nav>
             }
-
         </div>
-        <div class="col-12 col-md-4">
-
-            <div class="card">
-                <div class="card-body">
-                    <h5>A propos de l'auteur</h5>
-                    <hr />
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate amet ullam excepturi odio impedit saepe nemo repellendus, aut suscipit voluptas omnis quas quisquam accusamus illo laboriosam rerum, totam ea eaque.</p>
-                </div>
-            </div>
-
-
+       <div class="col-12 col-md-4">
+            <Sidebar  BlogPosts=@allBlogPosts/>
         </div>
     </div>
 </div>
+}
 @code {
     private List<BlogPost> allBlogPosts;
     private List<BlogPost> displayedBlogPosts;

@@ -1,0 +1,19 @@
+﻿@using StaticBlog3.Models
+
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    @if (blogPost == null)
+    {
+       <p>Loading...</p>
+    }
+    else {
+        <li class="breadcrumb-item"><a href="/@blogPost.Slug">Blog</a></li>
+        <li class="breadcrumb-item active">@blogPost.Title</li>
+    }
+</ul>
+
+@code{
+    [Parameter]
+    public BlogPost? blogPost { get; set; }
+
+}

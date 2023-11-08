@@ -1,14 +1,16 @@
 ---
 {
+  "Id": 0,
   "Title": "How to Create Static Blog Blazor .Net 8",
   "Description": "This is a simple MD blog post that demonstrates how to use How to Create Static Blog Blazor .Net 8 Markdown for text content",
   "Date": "2023-10-30T00:00:00",
   "Content": null,
   "Slug": null,
   "FeaturedImage": "/images/blog2.jpg",
+  "Views": 24,
+  "Author": "Abkhan",
+  "AuthorImg": "/profile/user1.png",
   "Thumbnail": "/images/blog2_thumbnail.jpg",
-
-  "Views": 4,
   "Tags": [
     ".Net 8",
     "Blazor",

@@ -7,56 +7,30 @@
 @attribute [StreamRendering]
 @inject BlogService blogService
 
-@if (displayedBlogPosts != null)
+@if (displayedBlogPosts == null)
 {
     
-<div class="container">
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container">
     <div class="row">
          <Hero />
     </div>
     <div class="row">
         <div class="col-md-8">
             <div class="row p-2">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                      
+                </ul>
                <h2 class="fst-italic">Recent posts</h2>
                <hr/>
                 @foreach (var post in displayedBlogPosts)
                 {
-                        <div class="card mx-2 mb-3 shadow-sm" @key=post.Id>
-                        <div class="row">
-                            <div class="col-5 p-0">
-                                    <img src="@(post.FeaturedImage)"
-                                         style="  object-fit: cover; background-repeat:no-repeat;background-position:center;"
-                                    class="p-0 border-none"
-                               width="100%" height="100%" alt="@post.Description" loading="lazy">
-                            </div>
-                            <div class="col-7 p-0">
-                                    <div class="card-body">
-                                        <a href="/@(post.Slug)" style="text-decoration:none;">
-                                            <h2 class="card-title">@post.Title</h2>
-                                        </a>
-                                        <p>@post.Description</p>
-                                         <div class="row">
-                                            <div class="col">
-                                                <p class="text-success">Author</p>
-                                            </div>
-                                            <div class="col">
-                                                <p class="text-secondary text-end">Views: @post.Views</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-wrap">
-                                            <p class="text-muted mb-0 pb-0"><small>@post.Date.ToShortDateString() in</small></p>
-                                        @foreach (var tag in post.Tags)
-                                        {
-                                                <p class="badge bg-success text-center m-1 mb-0 rounded-2" @key=tag>@tag.ToString()</p>
-                                        }
-                                        </div>
-                                    </div>
-
-                            </div>
-                        </div>
-                      
-                    </div>
-                 }
+                <BlogCard post="post"/>
+                }
             </div>
 
             @if (totalPages > 1)
@@ -93,10 +67,6 @@
         </div>
     </div>
     </div>
-}
-else
-{
-    <div>Loading...</div>
 }
 
 @code {

@@ -13,6 +13,8 @@ namespace StaticBlog3.Models
         public string Slug { get; set; }
         public string FeaturedImage { get; set; }
         public int Views { get; set; }
+        public string? Author { get; set; }
+        public string? AuthorImg { get; set; }
         public string Thumbnail { get; set; }
         public List<string> Tags { get; set; } // Change to a list of tags
 
