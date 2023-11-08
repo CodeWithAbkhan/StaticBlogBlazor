@@ -7,7 +7,8 @@
   "Slug": null,
   "FeaturedImage": "/images/blog2.jpg",
   "Thumbnail": "/images/blog2_thumbnail.jpg",
-
+   "Author" : "Abkhan",
+  "AuthorImg" : "/profile/user1.png",
   "Views": 4,
   "Tags": [
     ".Net 8",

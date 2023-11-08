@@ -1,14 +1,16 @@
 ---
 {
+  "Id": 0,
   "Title": "How .Net 8 is game changer?",
   "Description": "This is a simple MD blog post that demonstrates how to use Markdown for text content",
   "Date": "2023-10-30T00:00:00",
   "Content": null,
   "Slug": null,
-  "FeaturedImage": "/images/blog5.jpg",
-  "Thumbnail": "/images/blog5_thumbnail.jpg",
-
-  "Views": 23,
+  "FeaturedImage": "/images/plant4.jpeg",
+  "Views": 45,
+  "Author": "Abkhan",
+  "AuthorImg": "/profile/user1.png",
+  "Thumbnail": "/images/plant4_thumbnail.jpeg",
   "Tags": [
     ".Net",
     "Blazor",

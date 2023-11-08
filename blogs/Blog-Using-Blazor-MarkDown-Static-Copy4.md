@@ -1,14 +1,16 @@
 ---
 {
+  "Id": 0,
   "Title": "MarkDown MD Static blog with Blazor .Net 8",
   "Description": "This is a simple MD blog post that demonstrates how to use Markdown for text content",
   "Date": "2023-10-30T00:00:00",
   "Content": null,
   "Slug": null,
-  "FeaturedImage": "/images/blog1.jpg",
-  "Thumbnail": "/images/blog1_thumbnail.jpg",
-
-  "Views": 4,
+  "FeaturedImage": "/images/plant5.jpg",
+  "Views": 8,
+  "Author": "Abkhan",
+  "AuthorImg": "/profile/user1.png",
+  "Thumbnail": "/images/plant5_thumbnail.jpg",
   "Tags": [
     ".Net",
     "Blazor"
