@@ -1,0 +1,77 @@
+﻿@using StaticBlog3.Models
+@inject BlogService blogService
+
+
+@if (allBlogPosts == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    
+<div class="container">
+        <div class="row">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+            </ul>
+            <h2 class="fst-italic">Recent posts</h2>
+            <hr />
+            @foreach (var post in displayedBlogPosts)
+            {
+                <BlogCard post="post" />
+            }
+    </div>
+   
+</div>
+}
+
+@if (totalPages > 1)
+{
+    <nav aria-label="Blog Posts Pagination">
+        <ul class="pagination">
+            @if (currentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/blogs/@(currentPage - 1)">Previous</a>
+                </li>
+            }
+
+            @for (int page = Math.Max(1, currentPage - 2); page <= Math.Min(totalPages, currentPage + 2); page++)
+            {
+                <li class="page-item @(currentPage == page ? "active" : "")">
+                    <a class="page-link" href="/blogs/@(page)">@(page)</a>
+                </li>
+            }
+
+            @if (currentPage < totalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/blogs/@(currentPage + 1)">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+@code{
+    private List<BlogPost> allBlogPosts;
+    private List<BlogPost> displayedBlogPosts;
+    private int pageSize = 5;
+    private int currentPage = 1;
+    private int totalPages => (int)Math.Ceiling(allBlogPosts.Count / (double)pageSize);
+    List<BlogPost> popularBlogPosts;
+    protected override async Task OnInitializedAsync()
+    {
+        if (allBlogPosts == null) // Load data only once
+        {
+            allBlogPosts = blogService.GetBlogPosts().ToList(); // Load data asynchronously
+            popularBlogPosts = allBlogPosts.OrderByDescending(post => post.Views).Take(6).ToList();
+        }
+       UpdateDisplayedPosts();
+    }
+
+    private void UpdateDisplayedPosts()
+    {
+        displayedBlogPosts = allBlogPosts.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+    }
+}

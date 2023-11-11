@@ -33,10 +33,12 @@
     <Content Remove="C:\Users\Abkhan\.nuget\packages\bootstrap\5.3.2\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.min.css" />
     <Content Remove="C:\Users\Abkhan\.nuget\packages\bootstrap\5.3.2\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.min.css.map" />
     <Content Remove="Components\Breadcrumbs.razor" />
+    <Content Remove="wwwroot\blogs\The-Enchanting-Beauty-of-Orchids.md" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Components\Breadcrumbs.razor" />
+    <None Include="wwwroot\blogs\The-Enchanting-Beauty-of-Orchids.md" />
     <None Include="wwwroot\bootstrap\bootstrap.min.css.map" />
   </ItemGroup>
 
@@ -55,6 +57,11 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Components\Breadcrumbs.razor" />
+    <_ContentIncludedByDefault Remove="wwwroot\blogs\The-Enchanting-Beauty-of-Orchids.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include=".config\dotnet-tools.json" />
   </ItemGroup>
 
 </Project>

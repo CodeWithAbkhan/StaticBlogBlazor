@@ -1,6 +1,7 @@
 using Microsoft.Extensions.FileProviders;
 using StaticBlog3.Components;
 using StaticBlog3.Services;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddAntiforgery(options => { options.Cookie.SecurePolicy = CookieSecurePolicy.Always; });

@@ -1,0 +1,9 @@
+﻿@using StaticBlog3.Models
+@inject BlogService BlogService
+<div class="col text-center separator">
+    <p class="mb-0 text-muted"><img src="icons/eye.svg" alt="views" /> @views</p>
+</div>
+@code {
+        [Parameter] public string? views { get; set; }
+   
+}

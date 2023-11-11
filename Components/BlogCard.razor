@@ -3,22 +3,23 @@
 
 @if(post!= null)
 {
-<div class="card mx-2 mb-3 shadow-sm" @key=post.Id>
+<div class="col-6 mb-2" @key=post.Id>
+   <div class="card border ">
     <div class="row">
-        <div class="col-4 p-0">
+        <div class="flex-row ">
             <img src="@(post.FeaturedImage)"
                  style="  object-fit: cover; background-repeat:no-repeat;background-position:center;"
                  class="p-0 border-none"
                  width="100%" height="100%" alt="@post.Description" loading="lazy">
         </div>
-        <div class="col-8 p-0">
-            <div class="card-body">
+        <div class="flex-row p-0">
+                    <div class="card-body m-2">
                 <a href="/@(post.Slug)" style="text-decoration:none;">
-                    <h2 class="card-title">@post.Title</h2>
+                    <h2 class="card-title h4">@post.Title</h2>
                 </a>
                 <p class="text-muted">@post.Description ...</p>
-                    <div class="row text-center">
-                        <div class="col d-flex align-items-center gap-2">
+                    <div class="row justify-content-between ">
+                        <div class="col d-flex align-items-center  gap-2">
                             @if (post.AuthorImg is null)
                             {
                                 <img src="icons/person.svg" alt="user icon" class="border p-1 rounded-circle" width="35" height="35" />
@@ -27,17 +28,20 @@
                             {
                                 <img src="@post.AuthorImg" alt="@post.Author" class="rounded-circle" width="40" height="40" />
                             }
-                            <p class="mb-0 text-center text-muted">@post.Author</p>
+                            <p class="mb-0 text-center text-muted h">@post.Author</p>
+                                
                         </div>
-                        <div class="col text-end">
-                            <p class="mb-0 text-muted"><img src="icons/eye.svg" width="20" height="20" alt="views" /> @post.Views</p>
+                            <div class="col text-end">
+                       
+                                <p class="mb-0 text-muted "><img src="icons/eye.svg" width="15" height="15" alt="views" /> @post.Views</p>
+                                <p class="mb-0 text-muted">
+                                    <img src="icons/calendar.svg" width="10" height="10" alt="Calendar icon" /> @post.Date.ToString("MMM d, yyyy")
+                                </p>
                         </div>
                     </div>
                     <hr />
                     <div class="d-flex flex-wrap">
-                        <p class="mb-0 text-muted">
-                            <img src="icons/calendar.svg" width="20" height="20" alt="Calendar icon" /> @post.Date.ToString("MMMM d, yyyy") in
-                        </p>
+                       
                         @foreach (var tag in post.Tags)
                         {
                             <p class="badge bg-success text-center m-1 mb-0 rounded-2" @key=tag>@tag.ToString()</p>
@@ -47,6 +51,7 @@
             </div>
 
         </div>
+    </div>
     </div>
 </div>
 }
