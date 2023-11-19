@@ -3,7 +3,7 @@ name: Deploy Blazor Static site to GitHub Pages
 on:
     push:
         branches: [main]
-
+        
 jobs:
     deploy-to-github-pages:
         runs-on: ubuntu-latest
