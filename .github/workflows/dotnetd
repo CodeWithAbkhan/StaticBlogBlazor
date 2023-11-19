@@ -1,0 +1,41 @@
+name: Deploy Blazor_Static_site to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy-to-github-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v3.2.0
+        with:
+          dotnet-version: 8.x
+          include-prerelease: true
+
+      - name: dotnet workload restore
+        run: dotnet workload restore
+
+      - name: Publish .NET Core Project
+        run: dotnet publish StaticBlog3.csproj -c Release -o release --nologo
+
+      # changes the base-tag in index.html from '/' to 'BlazorWasmDemo' to match GitHub Pages repository subdirectory
+      #- name: Change base-tag in index.html from / to StaticBlogBlazor
+       # run: sed -i 's/<base href="\/" \/>/<base href="\/StaticBlogBlazor\/" \/>/g' release/wwwroot/index.html
+
+      # copy index.html to 404.html to serve the same file when a file is not found
+      #- name: copy index.html to 404.html
+       # run: cp release/wwwroot/index.html release/wwwroot/404.html
+
+      - name: Add .nojekyll file
+        run: touch release/wwwroot/.nojekyll
+
+      - name: Commit release to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: release
