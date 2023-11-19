@@ -7,7 +7,7 @@
   "Content": null,
   "Slug": "The-Enigmatic-World-of-Carnivorous-Plants",
   "FeaturedImage": "https://images.unsplash.com/photo-1538358519265-586278a34106?q=60\u0026w=780",
-  "Views": 179,
+  "Views": 180,
   "Author": "abkhan",
   "AuthorImg": "/profile/user1.png",
   "Thumbnail": "/images/plant6_thumbnail.jpg",

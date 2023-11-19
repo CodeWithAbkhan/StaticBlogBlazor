@@ -7,7 +7,7 @@
   "Content": null,
   "Slug": "The-Marvelous-World-of-Bonsai",
   "FeaturedImage": "/images/plant5.jpg",
-  "Views": 227,
+  "Views": 230,
   "Author": "DesertDreamer",
   "AuthorImg": "/profile/user2.png",
   "Thumbnail": "/images/plant5_thumbnail.jpg",

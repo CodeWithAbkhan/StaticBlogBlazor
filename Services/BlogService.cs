@@ -1,11 +1,14 @@
 ﻿using Markdig;
 using StaticBlog3.Models;
+using System.Text;
 using System.Text.Json;
-
+using System.Xml;
+using Microsoft.Extensions.Configuration;
 namespace StaticBlog3.Services
 {
     public class BlogService
     {
+        
         private readonly string _blogDirectory = "wwwroot/blogs";
 
         public IEnumerable<BlogPost> GetBlogPosts()
@@ -118,6 +121,40 @@ namespace StaticBlog3.Services
             return topBlogPosts;
         }
 
+        public string GenerateSitemap()
+        {
+
+            var blogPosts = GetBlogPosts();
+
+            var sitemap = new StringBuilder();
+            var settings = new XmlWriterSettings
+            {
+                Indent = true
+            };
+
+            using (var writer = XmlWriter.Create(sitemap, settings))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
+
+                foreach (var blogPost in blogPosts)
+                {
+                    writer.WriteStartElement("url");
+
+                    writer.WriteElementString("loc", "https://example.com/" + blogPost.Slug); // Replace with your actual blog URL
+                    writer.WriteElementString("lastmod", blogPost.Date.ToString("yyyy-MM-ddTHH:mm:sszzz"));
+                    writer.WriteElementString("changefreq", "monthly"); // You can adjust this frequency as needed
+                    writer.WriteElementString("priority", "0.8"); // You can adjust this priority as needed
+
+                    writer.WriteEndElement(); // Close the "url" element
+                }
+
+                writer.WriteEndElement(); // Close the "urlset" element
+                writer.WriteEndDocument();
+            }
+
+            return sitemap.ToString();
+        }
 
     }
 }

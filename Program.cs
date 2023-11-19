@@ -23,6 +23,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles(); 
 app.UseAntiforgery();
 app.MapRazorComponents<App>();
+app.MapGet("/sitemap.xml", async (HttpContext context) =>
+{
+    var blogService = context.RequestServices.GetRequiredService<BlogService>();
+    var sitemap = blogService.GenerateSitemap();
+
+    context.Response.Headers.Add(HeaderNames.ContentType, "application/xml");
+    await context.Response.WriteAsync(sitemap);
+});
 app.MapGet("/robots.txt", // ?? return a valid robots.txt
     () => """
           User-agent: *
